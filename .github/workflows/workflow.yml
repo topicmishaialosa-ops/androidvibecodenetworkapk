@@ -21,16 +21,13 @@ jobs:
     - name: Setup Android SDK
       uses: android-actions/setup-android@v3
     
-    - name: Create gradle wrapper
-      run: |
-        gradle wrapper --gradle-version 8.1
-        chmod +x gradlew
-    
     - name: Build APK
-      run: ./gradlew assembleRelease
+      run: |
+        chmod +x gradlew || true
+        ./gradlew assembleRelease
     
     - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
-        name: NetworkController-${{ github.run_number }}
+        name: NetworkController
         path: app/build/outputs/apk/release/*.apk
